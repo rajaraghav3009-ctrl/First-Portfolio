@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Raghav Raja Gupta — aspiring AI Product Manager, AI/ML enthusiast, and first-year student at Newton School of Technology.">
+  <title>Raghav Raja Gupta — Portfolio</title>
+  <style>
+    /* ===================================================================
+       CSS CUSTOM PROPERTIES
+       =================================================================== */
+    :root {
+      --clr-bg:        #0a0a0f;
+      --clr-surface:   #12121a;
+      --clr-panel:     rgba(18, 18, 28, 0.72);
+      --clr-panel-alt: rgba(25, 25, 40, 0.55);
+      --clr-border:    rgba(120, 100, 255, 0.12);
+      --clr-text:      #e4e4ef;
+      --clr-text-dim:  #9a9ab0;
+      --clr-heading:   #ffffff;
+      --clr-accent:    #7c6aff;
+      --clr-accent2:   #00d4ff;
+      --clr-accent3:   #ff6ec7;
+      --clr-glow:      rgba(124, 106, 255, 0.35);
+      --clr-glow2:     rgba(0, 212, 255, 0.25);
+      --radius:        16px;
+      --radius-sm:     10px;
+      --transition:    0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-card:   0 4px 32px rgba(0,0,0,0.45), 0 0 0 1px var(--clr-border);
+      --max-w:         1120px;
+    }
+
+    /* ===================================================================
+       RESET & BASE
+       =================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                   Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ===================================================================
+       ANIMATED BACKGROUND — GRID + ORBS
+       =================================================================== */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(124,106,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,106,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 25s linear infinite;
+    }
+
+    @keyframes gridShift {
+      to { background-position: 60px 60px; }
+    }
+
+    /* Floating orbs */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(600px circle at 15% 25%, rgba(124,106,255,0.12), transparent 60%),
+        radial-gradient(500px circle at 80% 60%, rgba(0,212,255,0.08), transparent 55%),
+        radial-gradient(450px circle at 50% 85%, rgba(255,110,199,0.07), transparent 55%);
+      animation: orbDrift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbDrift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(30px, -20px) scale(1.05); }
+      100% { transform: translate(-20px, 15px) scale(0.97); }
+    }
+
+    /* ===================================================================
+       REDUCED MOTION
+       =================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001s !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===================================================================
+       UTILITY & LAYOUT
+       =================================================================== */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); border: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding: 5rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===================================================================
+       SECTION HEADINGS
+       =================================================================== */
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--clr-heading);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      color: var(--clr-text-dim);
+      font-size: 1.05rem;
+      margin-bottom: 3rem;
+      max-width: 540px;
+    }
+
+    .section-title .accent {
+      background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Decorative line under section title */
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      margin-top: 0.75rem;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-accent2));
+    }
+
+    /* ===================================================================
+       NAVIGATION
+       =================================================================== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--clr-border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--clr-heading);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo span {
+      background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--clr-text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--clr-heading);
+      background: rgba(124, 106, 255, 0.1);
+    }
+
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--clr-accent);
+      outline-offset: 2px;
+    }
+
+    /* ===================================================================
+       HERO SECTION
+       =================================================================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 3D layered panels behind hero content */
+    .hero-layers {
+      position: absolute;
+      inset: 0;
+      perspective: 1200px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-layer {
+      position: absolute;
+      border-radius: var(--radius);
+      border: 1px solid var(--clr-border);
+    }
+
+    .hero-layer--1 {
+      width: 420px; height: 320px;
+      top: 12%; right: 4%;
+      background: linear-gradient(135deg, rgba(124,106,255,0.06), rgba(0,212,255,0.04));
+      transform: rotateY(-12deg) rotateX(6deg) translateZ(-60px);
+      animation: layerFloat1 12s ease-in-out infinite alternate;
+    }
+
+    .hero-layer--2 {
+      width: 340px; height: 260px;
+      top: 22%; right: 10%;
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(255,110,199,0.04));
+      transform: rotateY(-8deg) rotateX(4deg) translateZ(-30px);
+      animation: layerFloat2 14s ease-in-out infinite alternate;
+    }
+
+    .hero-layer--3 {
+      width: 260px; height: 200px;
+      top: 32%; right: 16%;
+      background: linear-gradient(135deg, rgba(255,110,199,0.06), rgba(124,106,255,0.04));
+      transform: rotateY(-4deg) rotateX(2deg) translateZ(0px);
+      animation: layerFloat3 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes layerFloat1 {
+      to { transform: rotateY(-14deg) rotateX(8deg) translateZ(-70px) translateY(-10px); }
+    }
+    @keyframes layerFloat2 {
+      to { transform: rotateY(-6deg) rotateX(2deg) translateZ(-20px) translateY(8px); }
+    }
+    @keyframes layerFloat3 {
+      to { transform: rotateY(-2deg) rotateX(4deg) translateZ(10px) translateY(-6px); }
+    }
+
+    /* Sound-wave decorative bars inside hero */
+    .hero-soundwave {
+      position: absolute;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      height: 60px;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .hero-soundwave .bar {
+      width: 3px;
+      border-radius: 2px;
+      background: linear-gradient(to top, var(--clr-accent), var(--clr-accent2));
+      animation: soundPulse var(--dur) ease-in-out infinite alternate;
+    }
+
+    @keyframes soundPulse {
+      0%   { height: var(--h1); }
+      100% { height: var(--h2); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      background: rgba(124,106,255,0.1);
+      border: 1px solid rgba(124,106,255,0.2);
+      color: var(--clr-accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge svg { flex-shrink: 0; }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 7vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--clr-heading);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name .gradient-text {
+      background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent2), var(--clr-accent3));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientMove 6s ease-in-out infinite;
+    }
+
+    @keyframes gradientMove {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+      color: var(--clr-text-dim);
+      margin-bottom: 2rem;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.85rem 2rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--clr-accent), #5a4dff);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      box-shadow: 0 0 24px var(--clr-glow), 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .hero-cta:hover,
+    .hero-cta:focus-visible {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 40px var(--clr-glow), 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    .hero-cta:focus-visible {
+      outline: 2px solid var(--clr-accent2);
+      outline-offset: 3px;
+    }
+
+    .hero-cta svg { transition: transform var(--transition); }
+    .hero-cta:hover svg { transform: translateX(3px); }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--clr-text-dim);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .scroll-hint::after {
+      content: "";
+      width: 2px; height: 28px;
+      border-radius: 1px;
+      background: linear-gradient(to bottom, var(--clr-accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+      50%      { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ===================================================================
+       GLASS CARD
+       =================================================================== */
+    .glass-card {
+      background: var(--clr-panel);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124, 106, 255, 0.25);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,106,255,0.2), 0 0 60px var(--clr-glow);
+    }
+
+    /* Layered panel variation */
+    .layered-panel {
+      position: relative;
+    }
+
+    .layered-panel::before {
+      content: "";
+      position: absolute;
+      inset: -6px -6px -6px -6px;
+      border-radius: calc(var(--radius) + 4px);
+      background: linear-gradient(135deg, rgba(124,106,255,0.08), rgba(0,212,255,0.05));
+      border: 1px solid rgba(124,106,255,0.06);
+      z-index: -1;
+      transition: opacity var(--transition);
+      opacity: 0;
+    }
+
+    .layered-panel:hover::before {
+      opacity: 1;
+    }
+
+    /* ===================================================================
+       ABOUT SECTION
+       =================================================================== */
+    #about .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--clr-accent), var(--clr-accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.82rem;
+      color: var(--clr-text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    /* ===================================================================
+       SKILLS SECTION
+       =================================================================== */
+    .skills-category {
+      margin-bottom: 2.5rem;
+    }
+
+    .skills-category:last-child {
+      margin-bottom: 0;
+    }
+
+    .skills-category-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--clr-heading);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .skills-category-title svg {
+      color: var(--clr-accent);
+      flex-shrink: 0;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--clr-panel-alt);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-chip::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(124,106,255,0.08), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .skill-chip:hover {
+      border-color: rgba(124,106,255,0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 30px var(--clr-glow);
+    }
+
+    .skill-chip:hover::before {
+      opacity: 1;
+    }
+
+    .skill-chip svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--clr-accent);
+    }
+
+    /* ===================================================================
+       GOALS SECTION
+       =================================================================== */
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .goal-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goal-card .goal-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, rgba(124,106,255,0.15), rgba(0,212,255,0.1));
+      border: 1px solid rgba(124,106,255,0.15);
+    }
+
+    .goal-card .goal-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--clr-accent);
+    }
+
+    .goal-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--clr-heading);
+      margin-bottom: 0.5rem;
+    }
+
+    .goal-card p {
+      font-size: 0.92rem;
+      color: var(--clr-text-dim);
+      line-height: 1.65;
+    }
+
+    /* Decorative glow on goal cards */
+    .goal-card::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -30%;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--card-glow, rgba(124,106,255,0.08)), transparent 70%);
+      pointer-events: none;
+      transition: opacity var(--transition);
+      opacity: 0.5;
+    }
+
+    .goal-card:hover::after {
+      opacity: 1;
+    }
+
+    .goal-card:nth-child(2) { --card-glow: rgba(0,212,255,0.08); }
+    .goal-card:nth-child(3) { --card-glow: rgba(255,110,199,0.08); }
+    .goal-card:nth-child(4) { --card-glow: rgba(0,212,255,0.08); }
+
+    /* ===================================================================
+       HOBBIES SECTION
+       =================================================================== */
+    .hobbies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .hobby-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .hobby-card .hobby-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(124,106,255,0.12), rgba(0,212,255,0.08));
+      border: 1px solid rgba(124,106,255,0.12);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .hobby-card:hover .hobby-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 30px var(--clr-glow);
+    }
+
+    .hobby-card .hobby-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--clr-accent);
+    }
+
+    .hobby-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--clr-heading);
+      margin-bottom: 0.35rem;
+    }
+
+    .hobby-card p {
+      font-size: 0.85rem;
+      color: var(--clr-text-dim);
+    }
+
+    /* ===================================================================
+       PROJECTS PLACEHOLDER
+       =================================================================== */
+    .projects-placeholder {
+      padding: 3rem 2rem;
+      text-align: center;
+      border: 2px dashed rgba(124,106,255,0.2);
+      border-radius: var(--radius);
+      color: var(--clr-text-dim);
+    }
+
+    .projects-placeholder svg {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1rem;
+      color: var(--clr-accent);
+      opacity: 0.5;
+    }
+
+    .projects-placeholder p {
+      font-size: 0.95rem;
+    }
+
+    /* ===================================================================
+       AUDIO / SOUNDWAVE SECTION
+       =================================================================== */
+    .audio-section {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .audio-section h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--clr-heading);
+      margin-bottom: 0.5rem;
+    }
+
+    .audio-section p {
+      font-size: 0.85rem;
+      color: var(--clr-text-dim);
+      margin-bottom: 1.25rem;
+    }
+
+    /* Decorative waveform */
+    .waveform {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      height: 40px;
+      margin-bottom: 1.25rem;
+    }
+
+    .waveform .bar {
+      width: 3px;
+      border-radius: 2px;
+      background: linear-gradient(to top, var(--clr-accent), var(--clr-accent2));
+      animation: wave var(--dur) ease-in-out infinite alternate;
+      opacity: 0.6;
+    }
+
+    @keyframes wave {
+      0%   { height: var(--h1); }
+      100% { height: var(--h2); }
+    }
+
+    audio {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    audio:focus-visible {
+      outline: 2px solid var(--clr-accent);
+      outline-offset: 3px;
+    }
+
+    /* ===================================================================
+       CONTACT / SOCIAL SECTION
+       =================================================================== */
+    #contact {
+      padding-bottom: 3rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      color: var(--clr-text-dim);
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--clr-accent);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.4rem 0;
+      transition: color var(--transition);
+    }
+
+    .contact-link:hover,
+    .contact-link:focus-visible {
+      color: var(--clr-accent2);
+    }
+
+    .contact-link:focus-visible {
+      outline: 2px solid var(--clr-accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .contact-link svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--clr-panel-alt);
+      border: 1px solid var(--clr-border);
+      color: var(--clr-text-dim);
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+
+    .social-link:hover,
+    .social-link:focus-visible {
+      color: var(--clr-heading);
+      border-color: var(--clr-accent);
+      background: rgba(124,106,255,0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px var(--clr-glow);
+    }
+
+    .social-link:focus-visible {
+      outline: 2px solid var(--clr-accent2);
+      outline-offset: 3px;
+    }
+
+    .social-link svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* ===================================================================
+       FOOTER
+       =================================================================== */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-top: 1px solid var(--clr-border);
+      color: var(--clr-text-dim);
+      font-size: 0.82rem;
+    }
+
+    footer a {
+      color: var(--clr-accent);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ===================================================================
+       FOCUS STYLES (global)
+       =================================================================== */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--clr-accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ===================================================================
+       RESPONSIVE
+       =================================================================== */
+    @media (max-width: 900px) {
+      #about .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-layers {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding: 3.5rem 0;
+      }
+      .nav-links {
+        gap: 0;
+      }
+      .nav-links a {
+        padding: 0.4rem 0.55rem;
+        font-size: 0.8rem;
+      }
+      .glass-card {
+        padding: 1.5rem;
+      }
+      .goals-grid {
+        grid-template-columns: 1fr;
+      }
+      .hobbies-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      }
+      .hero-soundwave {
+        display: none;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hobbies-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <nav aria-label="Primary navigation">
+    <div class="container">
+      <a href="#hero" class="nav-logo" aria-label="Raghav Raja Gupta — home">R<span>RG</span></a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#goals">Goals</a></li>
+        <li><a href="#hobbies">Hobbies</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ================================================================
+       HERO SECTION
+       ================================================================ -->
+  <section id="hero" aria-label="Hero introduction">
+    <!-- 3D layered translucent panels -->
+    <div class="hero-layers" aria-hidden="true">
+      <div class="hero-layer hero-layer--1"></div>
+      <div class="hero-layer hero-layer--2"></div>
+      <div class="hero-layer hero-layer--3"></div>
+    </div>
+
+    <!-- Decorative soundwave bars -->
+    <div class="hero-soundwave" aria-hidden="true">
+      <div class="bar" style="--dur:1.2s;--h1:12px;--h2:50px"></div>
+      <div class="bar" style="--dur:0.9s;--h1:20px;--h2:38px"></div>
+      <div class="bar" style="--dur:1.5s;--h1:8px;--h2:55px"></div>
+      <div class="bar" style="--dur:1.1s;--h1:15px;--h2:42px"></div>
+      <div class="bar" style="--dur:1.3s;--h1:10px;--h2:48px"></div>
+      <div class="bar" style="--dur:0.8s;--h1:22px;--h2:35px"></div>
+      <div class="bar" style="--dur:1.4s;--h1:6px;--h2:58px"></div>
+      <div class="bar" style="--dur:1.0s;--h1:18px;--h2:30px"></div>
+      <div class="bar" style="--dur:1.6s;--h1:14px;--h2:52px"></div>
+      <div class="bar" style="--dur:0.7s;--h1:25px;--h2:40px"></div>
+      <div class="bar" style="--dur:1.2s;--h1:10px;--h2:46px"></div>
+      <div class="bar" style="--dur:1.0s;--h1:16px;--h2:36px"></div>
+      <div class="bar" style="--dur:1.3s;--h1:8px;--h2:54px"></div>
+      <div class="bar" style="--dur:0.9s;--h1:20px;--h2:32px"></div>
+      <div class="bar" style="--dur:1.5s;--h1:12px;--h2:50px"></div>
+      <div class="bar" style="--dur:1.1s;--h1:18px;--h2:44px"></div>
+      <div class="bar" style="--dur:0.85s;--h1:24px;--h2:38px"></div>
+      <div class="bar" style="--dur:1.4s;--h1:10px;--h2:56px"></div>
+      <div class="bar" style="--dur:1.2s;--h1:14px;--h2:42px"></div>
+      <div class="bar" style="--dur:0.95s;--h1:22px;--h2:34px"></div>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <!-- Location pin icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Jind, Haryana · India
+        </div>
+
+        <h1 class="hero-name">
+          Hi, I'm<br>
+          <span class="gradient-text">Raghav Raja Gupta</span>
+        </h1>
+
+        <p class="hero-tagline">
+          First-year student at Newton School of Technology, passionate about AI, data analytics, and building products that make a difference.
+        </p>
+
+        <a href="#contact" class="hero-cta">
+          Get in Touch
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">Scroll</div>
+  </section>
+
+  <!-- ================================================================
+       ABOUT SECTION
+       ================================================================ -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <h2 class="section-title" id="about-heading">About <span class="accent">Me</span></h2>
+      <p class="section-subtitle">A snapshot of who I am and where I come from.</p>
+
+      <div class="about-grid">
+        <div class="about-text glass-card layered-panel">
+          <p>
+            I'm <strong>Raghav Raja Gupta</strong>, an 18-year-old first-year student at
+            <strong>Newton School of Technology</strong> (Rishihood University) in Sonipat,
+            Delhi&nbsp;NCR. Originally from Jind, Haryana, I moved to pursue my passion for
+            technology and innovation.
+          </p>
+          <p>
+            My curiosity spans artificial intelligence, data-driven decision-making, and
+            product thinking. I believe technology is most powerful when it solves real
+            problems for real people — and I'm eager to be part of that journey.
+          </p>
+          <p>
+            Beyond academics, I value leadership, clear communication, and continuous
+            learning. I hope to inspire others in whichever field I ultimately pursue.
+          </p>
+        </div>
+
+        <div class="about-stats">
+          <div class="stat-card glass-card">
+            <span class="stat-value">18</span>
+            <span class="stat-label">Years Old</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-value">1st</span>
+            <span class="stat-label">Year Student</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-value">NST</span>
+            <span class="stat-label">University</span>
+          </div>
+          <div class="stat-card glass-card">
+            <span class="stat-value">AI</span>
+            <span class="stat-label">Primary Focus</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       SKILLS SECTION
+       ================================================================ -->
+  <section id="skills" aria-labelledby="skills-heading">
+    <div class="container">
+      <h2 class="section-title" id="skills-heading">Skills & <span class="accent">Tools</span></h2>
+      <p class="section-subtitle">Technical and soft skills I'm building every day.</p>
+
+      <!-- Technical Skills -->
+      <div class="skills-category">
+        <h3 class="skills-category-title">
+          <!-- Code icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Programming &amp; AI
+        </h3>
+        <div class="skills-grid">
+          <div class="skill-chip">
+            <!-- Brain / AI icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 017 7c0 3-2 5.5-4 7l-3 3-3-3c-2-1.5-4-4-4-7a7 7 0 017-7z"/><circle cx="12" cy="9" r="2"/></svg>
+            AI
+          </div>
+          <div class="skill-chip">
+            <!-- Terminal icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            Python
+          </div>
+          <div class="skill-chip">
+            <!-- Database icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            SQL
+          </div>
+          <div class="skill-chip">
+            <!-- Puzzle icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h3a2 2 0 012 2v0a2 2 0 01-2 2H4v5h5v-3a2 2 0 012-2v0a2 2 0 012 2v3h5v-5h-3a2 2 0 01-2-2v0a2 2 0 012-2h3V4h-5v3a2 2 0 01-2 2v0a2 2 0 01-2-2V4H4z"/></svg>
+            Problem Solving
+          </div>
+        </div>
+      </div>
+
+      <!-- Data & Analytics -->
+      <div class="skills-category">
+        <h3 class="skills-category-title">
+          <!-- Chart icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Data &amp; Analytics
+        </h3>
+        <div class="skills-grid">
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            Pandas
+          </div>
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            NumPy
+          </div>
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 11-9-9"/><path d="M21 3v9h-9"/></svg>
+            Power BI
+          </div>
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Streamlit
+          </div>
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+            Basic Excel
+          </div>
+        </div>
+      </div>
+
+      <!-- Productivity & Presentation -->
+      <div class="skills-category">
+        <h3 class="skills-category-title">
+          <!-- Presentation icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Productivity
+        </h3>
+        <div class="skills-grid">
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            PowerPoint
+          </div>
+        </div>
+      </div>
+
+      <!-- Soft Skills -->
+      <div class="skills-category">
+        <h3 class="skills-category-title">
+          <!-- People icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Soft Skills
+        </h3>
+        <div class="skills-grid">
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15 8.5 22 9.3 17 14 18 21 12 17.8 6 21 7 14 2 9.3 9 8.5 12 2"/></svg>
+            Leadership
+          </div>
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+            Management
+          </div>
+          <div class="skill-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Formal Communication
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       GOALS & VISION SECTION
+       ================================================================ -->
+  <section id="goals" aria-labelledby="goals-heading">
+    <div class="container">
+      <h2 class="section-title" id="goals-heading">Goals & <span class="accent">Vision</span></h2>
+      <p class="section-subtitle">Where I'm headed and the aspirations that drive me.</p>
+
+      <div class="goals-grid">
+        <!-- Goal 1 -->
+        <article class="goal-card glass-card layered-panel">
+          <div class="goal-icon">
+            <!-- Lightbulb icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 015 11.9V17H7v-3.1A7 7 0 0112 2z"/></svg>
+          </div>
+          <h3>AI Product Manager</h3>
+          <p>
+            I aspire to lead AI-powered products from concept to launch — blending
+            technical depth with user empathy to create solutions that genuinely improve
+            people's lives.
+          </p>
+        </article>
+
+        <!-- Goal 2 -->
+        <article class="goal-card glass-card layered-panel">
+          <div class="goal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 017 7c0 3-2 5.5-4 7l-3 3-3-3c-2-1.5-4-4-4-7a7 7 0 017-7z"/><circle cx="12" cy="9" r="2"/></svg>
+          </div>
+          <h3>AI / ML Expert</h3>
+          <p>
+            Building deep expertise in machine learning and artificial intelligence —
+            from foundational algorithms to cutting-edge research — is a core ambition
+            that fuels my daily learning.
+          </p>
+        </article>
+
+        <!-- Goal 3 -->
+        <article class="goal-card glass-card layered-panel">
+          <div class="goal-icon">
+            <!-- Rocket icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12l-2 6 6-2"/><path d="M12 2C6 8 4 14 4 18l4-2 4 4 4-4 4 2c0-4-2-10-8-16z"/></svg>
+          </div>
+          <h3>Forward-Deployed Engineer</h3>
+          <p>
+            I'm drawn to roles where engineering meets the customer — shipping
+            high-impact solutions on the front lines and adapting quickly to complex,
+            real-world challenges.
+          </p>
+        </article>
+
+        <!-- Goal 4 -->
+        <article class="goal-card glass-card layered-panel">
+          <div class="goal-icon">
+            <!-- Globe icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3>Technology Entrepreneurship</h3>
+          <p>
+            Longer term, I'd love to explore building my own venture — turning bold
+            ideas into products and organizations that push technology forward and
+            inspire the next generation.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       HOBBIES & INTERESTS SECTION
+       ================================================================ -->
+  <section id="hobbies" aria-labelledby="hobbies-heading">
+    <div class="container">
+      <h2 class="section-title" id="hobbies-heading">Hobbies & <span class="accent">Interests</span></h2>
+      <p class="section-subtitle">What keeps me curious and energized outside of work.</p>
+
+      <div class="hobbies-grid">
+        <!-- Reading -->
+        <article class="hobby-card glass-card">
+          <div class="hobby-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <h3>Reading Books</h3>
+          <p>From tech non-fiction to thought-provoking literature.</p>
+        </article>
+
+        <!-- Movies & Shows -->
+        <article class="hobby-card glass-card">
+          <div class="hobby-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>
+          </div>
+          <h3>Movies &amp; Web Shows</h3>
+          <p>Enjoying great storytelling across screens.</p>
+        </article>
+
+        <!-- Exploring Tech -->
+        <article class="hobby-card glass-card">
+          <div class="hobby-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3>Exploring New Tech</h3>
+          <p>Staying ahead by tinkering with the latest tools and platforms.</p>
+        </article>
+
+        <!-- Sports -->
+        <article class="hobby-card glass-card">
+          <div class="hobby-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/><path d="M2 12h20"/></svg>
+          </div>
+          <h3>Playing Sports</h3>
+          <p>Staying active and competitive on the field.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       PROJECTS SECTION (placeholder — add your projects here)
+       ================================================================ -->
+  <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  PROJECTS — Add your projects below when ready.                ║
+    ║  Duplicate the <article> card template for each new project.   ║
+    ╚══════════════════════════════════════════════════════════════════╝
+  -->
+  <section id="projects" aria-labelledby="projects-heading">
+    <div class="container">
+      <h2 class="section-title" id="projects-heading">Featured <span class="accent">Projects</span></h2>
+      <p class="section-subtitle">Highlights of what I've built and learned.</p>
+
+      <div class="projects-placeholder">
+        <!-- Folder icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+        <p><strong>Projects coming soon.</strong><br>This section is a placeholder — add your work here as you build.</p>
+      </div>
+
+      <!--
+        PROJECT CARD TEMPLATE — copy and customise:
+
+        <article class="goal-card glass-card layered-panel">
+          <h3>Project Title</h3>
+          <p>Brief description of the project, technologies used, and impact.</p>
+          <a href="YOUR_PROJECT_URL" class="contact-link">
+            View Project
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </article>
+      -->
+    </div>
+  </section>
+
+  <!-- ================================================================
+       AUDIO PLAYER (optional sound — user-controlled, never autoplay)
+       ================================================================ -->
+  <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  AUDIO — Replace the src below with a path or URL to your      ║
+    ║  audio file (e.g. "music/intro.mp3"). Supports mp3, ogg, wav.  ║
+    ╚══════════════════════════════════════════════════════════════════╝
+  -->
+  <section aria-labelledby="audio-heading">
+    <div class="container">
+      <div class="audio-section glass-card">
+        <h3 id="audio-heading">🎵 Vibe Check</h3>
+        <p>Press play if you want a soundtrack to go with this portfolio.</p>
+
+        <!-- Decorative waveform visualisation -->
+        <div class="waveform" aria-hidden="true">
+          <div class="bar" style="--dur:1.0s;--h1:6px;--h2:28px"></div>
+          <div class="bar" style="--dur:0.7s;--h1:10px;--h2:36px"></div>
+          <div class="bar" style="--dur:1.3s;--h1:4px;--h2:32px"></div>
+          <div class="bar" style="--dur:0.9s;--h1:12px;--h2:40px"></div>
+          <div class="bar" style="--dur:1.1s;--h1:8px;--h2:24px"></div>
+          <div class="bar" style="--dur:0.8s;--h1:14px;--h2:38px"></div>
+          <div class="bar" style="--dur:1.4s;--h1:6px;--h2:30px"></div>
+          <div class="bar" style="--dur:1.0s;--h1:10px;--h2:34px"></div>
+          <div class="bar" style="--dur:0.75s;--h1:16px;--h2:40px"></div>
+          <div class="bar" style="--dur:1.2s;--h1:8px;--h2:26px"></div>
+          <div class="bar" style="--dur:0.85s;--h1:12px;--h2:36px"></div>
+          <div class="bar" style="--dur:1.3s;--h1:4px;--h2:32px"></div>
+        </div>
+
+        <!-- CUSTOMISE: Replace "YOUR_AUDIO_FILE.mp3" with your actual audio file path -->
+        <audio controls preload="none">
+          <source src="YOUR_AUDIO_FILE.mp3" type="audio/mpeg">
+          <!-- Add additional formats for broader support:
+               <source src="YOUR_AUDIO_FILE.ogg" type="audio/ogg">
+               <source src="YOUR_AUDIO_FILE.wav" type="audio/wav"> -->
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CONTACT / SOCIAL SECTION
+       ================================================================ -->
+  <!--
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║  CONTACT — Replace the placeholder URLs and email below with   ║
+    ║  your real details. Look for "YOUR_..." placeholders.          ║
+    ╚══════════════════════════════════════════════════════════════════╝
+  -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <h2 class="section-title" id="contact-heading">Let's <span class="accent">Connect</span></h2>
+      <p class="section-subtitle">I'm always open to conversations, collaborations, and new ideas.</p>
+
+      <div class="contact-grid">
+        <div class="contact-info glass-card layered-panel">
+          <p>
+            Whether you have an interesting project, an opportunity, or just want
+            to say hello — I'd love to hear from you.
+          </p>
+
+          <!-- CUSTOMISE: Replace YOUR_EMAIL@example.com with your real email -->
+          <a href="mailto:YOUR_EMAIL@example.com" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+            YOUR_EMAIL@example.com
+          </a>
+          <br>
+
+          <!-- CUSTOMISE: Replace YOUR_PHONE_NUMBER with your real phone (or remove) -->
+          <a href="tel:YOUR_PHONE_NUMBER" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            YOUR_PHONE_NUMBER
+          </a>
+        </div>
+
+        <div class="glass-card" style="padding:2rem;">
+          <h3 style="font-size:1.05rem;font-weight:700;color:var(--clr-heading);margin-bottom:1.25rem;">Find me on</h3>
+
+          <div class="social-links">
+            <!-- CUSTOMISE: Replace each # with your actual profile URL -->
+
+            <!-- LinkedIn -->
+            <a href="#YOUR_LINKEDIN_URL" class="social-link" aria-label="LinkedIn profile" title="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+
+            <!-- GitHub -->
+            <a href="#YOUR_GITHUB_URL" class="social-link" aria-label="GitHub profile" title="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+
+            <!-- Twitter / X -->
+            <a href="#YOUR_TWITTER_URL" class="social-link" aria-label="Twitter / X profile" title="Twitter / X">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l11.7 16h4.3L8.3 4H4z"/><path d="M4 20l6.6-8"/><path d="M20 4l-6.6 8"/></svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="#YOUR_INSTAGRAM_URL" class="social-link" aria-label="Instagram profile" title="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:YOUR_EMAIL@example.com" class="social-link" aria-label="Send email" title="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Raghav Raja Gupta. Built with pure HTML &amp; CSS.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
+
